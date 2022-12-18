@@ -27,9 +27,9 @@ public class TestEngine {
 		Map<String, String> commonStocksAndTheirLiquidityHealth = commonStocks.stream()
 				.collect(Collectors.toMap(CommonStock::getSymbol, cs -> {
 					if (cs.getWorkingCapitalRatio() >= 2) {
-						return "Healthy Liquidy With A Working Capital Ratio of " + cs.getWorkingCapitalRatio();
+						return "Healthy Liquidity With A Working Capital Ratio of " + cs.getWorkingCapitalRatio();
 					} else {
-						return "Unhealthy Liquidy With A Working Capital Ratio of " + cs.getWorkingCapitalRatio();
+						return "Unhealthy Liquidity With A Working Capital Ratio of " + cs.getWorkingCapitalRatio();
 					}
 				}, (cs1, cs2) -> {
 					return cs1;
