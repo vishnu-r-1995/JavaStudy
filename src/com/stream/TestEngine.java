@@ -10,7 +10,7 @@ public class TestEngine {
 
 	public static void main(String[] args) {
 		List<CommonStock> commonStocks = getCommonStockList();
-		printCommonStocksWithHealthyLiquidityUsingMap(commonStocks);
+		displayCommonStocksAndTheirLiquidityHealth(commonStocks);
 
 	}
 
@@ -21,7 +21,7 @@ public class TestEngine {
 				new CommonStock("aapl", "apple", new BigDecimal(134.51), new BigDecimal(134.51), 0.86));
 	}
 	
-	private static void printCommonStocksWithHealthyLiquidityUsingMap(List<CommonStock> commonStocks) 
+	private static void displayCommonStocksAndTheirLiquidityHealth(List<CommonStock> commonStocks) 
 	{
 		// Using Collectors.toMap, print stocks and their liquidity health
 		Map<String, String> commonStocksAndTheirLiquidityHealth = commonStocks.stream()
