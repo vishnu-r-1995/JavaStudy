@@ -2,6 +2,7 @@ package com.stream;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -11,6 +12,7 @@ public class TestEngine {
 	public static void main(String[] args) {
 		List<CommonStock> commonStocks = getCommonStockList();
 		displayCommonStocksAndTheirLiquidityHealth(commonStocks);
+		displayTopThreeCommonStocksByTheirPreviousClosingPrice(commonStocks);
 
 	}
 
@@ -37,4 +39,12 @@ public class TestEngine {
 		commonStocksAndTheirLiquidityHealth.forEach((name, liquidity) -> System.out.println(name + " : " + liquidity));
 	}
 
+	private static void displayTopThreeCommonStocksByTheirPreviousClosingPrice(List<CommonStock> commonStocks) 
+	{
+		int numberOfStocks = commonStocks.size();
+		List<CommonStock> commonStocksSorted = commonStocks.stream()
+				.sorted(Comparator.comparing(CommonStock::getPreviousClosingPrice)).skip(numberOfStocks - 3)
+				.collect(Collectors.toList());
+		commonStocksSorted.forEach(c -> System.out.println(c.getName() + " : Previous Closing Price  $" + c.getPreviousClosingPrice().doubleValue()));
+	}
 }
