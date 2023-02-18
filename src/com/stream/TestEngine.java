@@ -3,6 +3,7 @@ package com.stream;
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.DoubleSummaryStatistics;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -14,7 +15,7 @@ public class TestEngine {
 		displayCommonStocksAndTheirLiquidityHealth(commonStocks);
 		displayTopThreeCommonStocksByTheirPreviousClosingPrice(commonStocks);
 		List<Book> books = getSampleBookDataSet();
-
+		Map<String, DoubleSummaryStatistics> bookPriceStatisticsByGenre = getBookPriceStatisticsByGenre(books);
 	}
 
 	private static List<CommonStock> getCommonStockList() {
@@ -56,5 +57,10 @@ public class TestEngine {
 				new Book("Learning SQL", "Alan Beaulieu", new BigDecimal(1350.0), "Computer Science"),
 				new Book("In Our Veins Flow Ink And Fire", "Kochi Biennale Foundation", new BigDecimal(800.00), "Art"),
 				new Book("Incarnations", "Sunil Khilnani", new BigDecimal(599.00), "History"));
+	}
+	
+	private static Map<String, DoubleSummaryStatistics> getBookPriceStatisticsByGenre(List<Book> books) 
+	{
+		return books.stream().collect(Collectors.groupingBy(Book::getGenre, Collectors.summarizingDouble(b -> b.getPrice().doubleValue())));
 	}
 }
