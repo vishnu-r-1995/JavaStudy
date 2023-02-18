@@ -7,5 +7,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="C:/All/Java Libraries/commons-collections4-4.4/commons-collections4-4.4.jar"/>
+	<classpathentry kind="lib" path="C:/All/Java Libraries/guava-18.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
