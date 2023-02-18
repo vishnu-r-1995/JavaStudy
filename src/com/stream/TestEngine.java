@@ -16,7 +16,8 @@ public class TestEngine {
 		displayTopThreeCommonStocksByTheirPreviousClosingPrice(commonStocks);
 		List<Book> books = getSampleBookDataSet();
 		Map<String, DoubleSummaryStatistics> bookPriceStatisticsByGenre = getBookPriceStatisticsByGenre(books);
-		displayCountAndMaxAndMinPriceOfBooksByGenre(bookPriceStatisticsByGenre, "History");
+		displayCountAndMaxAndMinPriceOfBooksByGenre(bookPriceStatisticsByGenre, "Art");
+		displayTheDetailsOfTheMostExpensiveBook(books);
 	}
 
 	private static List<CommonStock> getCommonStockList() {
@@ -71,5 +72,10 @@ public class TestEngine {
 		System.out.print("Number of " + genre + " books in collection = " + bookPriceStatisticsByGenre.get(genre).getCount());
 		System.out.print("\tMax price of a " + genre + " book = " + bookPriceStatisticsByGenre.get(genre).getMax());
 		System.out.println("\tMin price of a " + genre + " book = " + bookPriceStatisticsByGenre.get(genre).getMin());
+	}
+	
+	private static void displayTheDetailsOfTheMostExpensiveBook(List<Book> books) 
+	{
+		books.stream().max(Comparator.comparingDouble(b -> b.getPrice().doubleValue())).ifPresent(d -> System.out.println("Most expensive book details:\t" + d));
 	}
 }
