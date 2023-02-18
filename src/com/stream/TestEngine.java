@@ -1,12 +1,17 @@
 package com.stream;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Comparator;
 import java.util.DoubleSummaryStatistics;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.collections4.Transformer;
 
 public class TestEngine {
 
@@ -19,6 +24,8 @@ public class TestEngine {
 		displayCountAndMaxAndMinPriceOfBooksByGenre(bookPriceStatisticsByGenre, "Art");
 		displayBookDetailsUsingCustomComparator(books, Comparator.comparing(Book::getName));
 		displayCountOfBooksBySpecifiedAuthor(books, "Manu S Pillai");
+		ArrayList<String> listOfGenre = getListOfGenreUsingCollectionUtils(books);
+		displayAllGenre(listOfGenre);
 	}
 
 	private static List<CommonStock> getCommonStockList() {
@@ -88,5 +95,21 @@ public class TestEngine {
 					return list.stream().count();
 				})));
 		System.out.println("Number of books by " + author + " = " + countOfBooksByAuthor.get(author));
+	}
+	
+	private static ArrayList<String> getListOfGenreUsingCollectionUtils(List<Book> books) 
+	{
+		Collection<String> collectionOfGenre = CollectionUtils.collect(books, new Transformer<Book, String>() {
+			@Override
+			public String transform(Book book) {
+				return book.getGenre();
+			}
+		});
+		return new ArrayList<>(collectionOfGenre);
+	}
+	
+	private static void displayAllGenre(ArrayList<String> listOfGenre) 
+	{
+		listOfGenre.stream().forEach(g -> System.out.print(g + "\t"));
 	}
 }
