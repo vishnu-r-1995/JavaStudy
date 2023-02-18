@@ -13,6 +13,7 @@ public class TestEngine {
 		List<CommonStock> commonStocks = getCommonStockList();
 		displayCommonStocksAndTheirLiquidityHealth(commonStocks);
 		displayTopThreeCommonStocksByTheirPreviousClosingPrice(commonStocks);
+		List<Book> books = getSampleBookDataSet();
 
 	}
 
@@ -46,5 +47,14 @@ public class TestEngine {
 				.sorted(Comparator.comparing(CommonStock::getPreviousClosingPrice)).skip(numberOfStocks - 3)
 				.collect(Collectors.toList());
 		commonStocksSorted.forEach(c -> System.out.println(c.getName() + " : Previous Closing Price  $" + c.getPreviousClosingPrice().doubleValue()));
+	}
+	
+	private static List<Book> getSampleBookDataSet() 
+	{
+		return Arrays.asList(new Book("Masala Lab", "Krish Ashok", new BigDecimal(399.00), "Food"),
+				new Book("The Courtesan, the Mahatma and the Italian Brahman", "Manu S Pillai", new BigDecimal(399.00), "History"),
+				new Book("Learning SQL", "Alan Beaulieu", new BigDecimal(1350.0), "Computer Science"),
+				new Book("In Our Veins Flow Ink And Fire", "Kochi Biennale Foundation", new BigDecimal(800.00), "Art"),
+				new Book("Incarnations", "Sunil Khilnani", new BigDecimal(599.00), "History"));
 	}
 }
