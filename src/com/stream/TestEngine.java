@@ -17,7 +17,7 @@ public class TestEngine {
 		List<Book> books = getSampleBookDataSet();
 		Map<String, DoubleSummaryStatistics> bookPriceStatisticsByGenre = getBookPriceStatisticsByGenre(books);
 		displayCountAndMaxAndMinPriceOfBooksByGenre(bookPriceStatisticsByGenre, "Art");
-		displayTheDetailsOfTheMostExpensiveBook(books);
+		displayBookDetailsUsingCustomComparator(books, Comparator.comparing(Book::getName));
 	}
 
 	private static List<CommonStock> getCommonStockList() {
@@ -74,8 +74,8 @@ public class TestEngine {
 		System.out.println("\tMin price of a " + genre + " book = " + bookPriceStatisticsByGenre.get(genre).getMin());
 	}
 	
-	private static void displayTheDetailsOfTheMostExpensiveBook(List<Book> books) 
+	private static void displayBookDetailsUsingCustomComparator(List<Book> books, Comparator<Book> comparator) 
 	{
-		books.stream().max(Comparator.comparingDouble(b -> b.getPrice().doubleValue())).ifPresent(d -> System.out.println("Most expensive book details:\t" + d));
+		books.stream().sorted(comparator.reversed()).findFirst().ifPresent(System.out::println);
 	}
 }
