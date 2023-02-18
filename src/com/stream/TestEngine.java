@@ -13,6 +13,8 @@ import java.util.stream.Collectors;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.Transformer;
 
+import com.google.common.base.Preconditions;
+
 public class TestEngine {
 
 	public static void main(String[] args) {
@@ -26,6 +28,7 @@ public class TestEngine {
 		displayCountOfBooksBySpecifiedAuthor(books, "Manu S Pillai");
 		ArrayList<String> listOfGenre = getListOfGenreUsingCollectionUtils(books);
 		displayAllGenre(listOfGenre);
+		displayWhetherSpecifiedGenreIsPresent(listOfGenre, "Travel");
 	}
 
 	private static List<CommonStock> getCommonStockList() {
@@ -110,6 +113,17 @@ public class TestEngine {
 	
 	private static void displayAllGenre(ArrayList<String> listOfGenre) 
 	{
-		listOfGenre.stream().forEach(g -> System.out.print(g + "\t"));
+		listOfGenre.stream().distinct().forEach(g -> System.out.print(g + "\t"));
+	}
+	
+	private static void displayWhetherSpecifiedGenreIsPresent(ArrayList<String> listOfGenre, String genre) 
+	{
+		try {
+			System.out.println("\n");
+			Preconditions.checkArgument(listOfGenre.contains(genre), "Genre: %s is absent", genre);
+			System.out.println(String.format("Genre: %s is present", genre));
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
 	}
 }
