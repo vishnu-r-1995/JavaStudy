@@ -18,6 +18,7 @@ public class TestEngine {
 		Map<String, DoubleSummaryStatistics> bookPriceStatisticsByGenre = getBookPriceStatisticsByGenre(books);
 		displayCountAndMaxAndMinPriceOfBooksByGenre(bookPriceStatisticsByGenre, "Art");
 		displayBookDetailsUsingCustomComparator(books, Comparator.comparing(Book::getName));
+		displayCountOfBooksBySpecifiedAuthor(books, "Manu S Pillai");
 	}
 
 	private static List<CommonStock> getCommonStockList() {
@@ -58,7 +59,8 @@ public class TestEngine {
 				new Book("The Courtesan, the Mahatma and the Italian Brahman", "Manu S Pillai", new BigDecimal(399.00), "History"),
 				new Book("Learning SQL", "Alan Beaulieu", new BigDecimal(1350.0), "Computer Science"),
 				new Book("In Our Veins Flow Ink And Fire", "Kochi Biennale Foundation", new BigDecimal(800.00), "Art"),
-				new Book("Incarnations", "Sunil Khilnani", new BigDecimal(599.00), "History"));
+				new Book("Incarnations", "Sunil Khilnani", new BigDecimal(599.00), "History"),
+				new Book("False Allies", "Manu S Pillai", new BigDecimal(899.00), "History"));
 	}
 	
 	private static Map<String, DoubleSummaryStatistics> getBookPriceStatisticsByGenre(List<Book> books) 
@@ -77,5 +79,14 @@ public class TestEngine {
 	private static void displayBookDetailsUsingCustomComparator(List<Book> books, Comparator<Book> comparator) 
 	{
 		books.stream().sorted(comparator.reversed()).findFirst().ifPresent(System.out::println);
+	}
+	
+	private static void displayCountOfBooksBySpecifiedAuthor(List<Book> books, String author) 
+	{
+		Map<String, Long> countOfBooksByAuthor = books.stream().collect(Collectors.groupingBy(Book::getAuthor,
+				Collectors.collectingAndThen(Collectors.toList(), list -> {
+					return list.stream().count();
+				})));
+		System.out.println("Number of books by " + author + " = " + countOfBooksByAuthor.get(author));
 	}
 }
