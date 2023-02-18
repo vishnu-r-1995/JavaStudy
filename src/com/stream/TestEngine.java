@@ -16,7 +16,7 @@ public class TestEngine {
 		displayTopThreeCommonStocksByTheirPreviousClosingPrice(commonStocks);
 		List<Book> books = getSampleBookDataSet();
 		Map<String, DoubleSummaryStatistics> bookPriceStatisticsByGenre = getBookPriceStatisticsByGenre(books);
-		displayMaximumPriceOfHistoryBook(bookPriceStatisticsByGenre);
+		displayCountAndMaxAndMinPriceOfBooksByGenre(bookPriceStatisticsByGenre, "History");
 	}
 
 	private static List<CommonStock> getCommonStockList() {
@@ -65,9 +65,11 @@ public class TestEngine {
 		return books.stream().collect(Collectors.groupingBy(Book::getGenre, Collectors.summarizingDouble(b -> b.getPrice().doubleValue())));
 	}
 	
-	private static void displayMaximumPriceOfHistoryBook(Map<String, DoubleSummaryStatistics> bookPriceStatisticsByGenre) 
+	private static void displayCountAndMaxAndMinPriceOfBooksByGenre(
+			Map<String, DoubleSummaryStatistics> bookPriceStatisticsByGenre, String genre) 
 	{
-		System.out.print("Number of history books in collection = " + bookPriceStatisticsByGenre.get("History").getCount());
-		System.out.println("\tMaximum price of a history book = " + bookPriceStatisticsByGenre.get("History").getMax());
+		System.out.print("Number of " + genre + " books in collection = " + bookPriceStatisticsByGenre.get(genre).getCount());
+		System.out.println("\tMax price of a " + genre + " book = " + bookPriceStatisticsByGenre.get(genre).getMax());
+		System.out.println("\tMin price of a " + genre + " book = " + bookPriceStatisticsByGenre.get(genre).getMin());
 	}
 }
