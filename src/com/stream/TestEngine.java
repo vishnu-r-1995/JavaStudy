@@ -69,7 +69,7 @@ public class TestEngine {
 			Map<String, DoubleSummaryStatistics> bookPriceStatisticsByGenre, String genre) 
 	{
 		System.out.print("Number of " + genre + " books in collection = " + bookPriceStatisticsByGenre.get(genre).getCount());
-		System.out.println("\tMax price of a " + genre + " book = " + bookPriceStatisticsByGenre.get(genre).getMax());
+		System.out.print("\tMax price of a " + genre + " book = " + bookPriceStatisticsByGenre.get(genre).getMax());
 		System.out.println("\tMin price of a " + genre + " book = " + bookPriceStatisticsByGenre.get(genre).getMin());
 	}
 }
